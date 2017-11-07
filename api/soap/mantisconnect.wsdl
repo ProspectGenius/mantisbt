@@ -1243,6 +1243,16 @@
     <input message="tns:mc_user_profiles_get_allRequest"/>
     <output message="tns:mc_user_profiles_get_allResponse"/>
   </operation>
+  <operation name="mc_change_password">
+    <documentation>Allows user to change own password.</documentation>
+    <input message="tns:mc_change_passwordRequest"/>
+    <output message="tns:mc_change_passwordResponse"/>
+  </operation>
+  <operation name="mc_change_users_password">
+    <documentation>Allows admin to change password for given user.</documentation>
+    <input message="tns:mc_change_users_passwordRequest"/>
+    <output message="tns:mc_change_users_passwordResponse"/>
+  </operation>
   <operation name="mc_tag_get_all">
     <documentation>Gets all the tags.</documentation>
     <input message="tns:mc_tag_get_allRequest"/>
