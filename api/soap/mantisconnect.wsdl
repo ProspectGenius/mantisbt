@@ -866,6 +866,19 @@
   <part name="per_page" type="xsd:integer" /></message>
 <message name="mc_user_profiles_get_allResponse">
   <part name="return" type="tns:ProfileDataSearchResult" /></message>
+<message name="mc_change_passwordRequest">
+  <part name="username" type="xsd:string" />
+  <part name="password" type="xsd:string" />
+  <part name="newpassword" type="xsd:string" /></message>
+<message name="mc_change_passwordResponse">
+  <part name="return" type="xsd:boolean" /></message>
+<message name="mc_change_users_passwordRequest">
+  <part name="username" type="xsd:string" />
+  <part name="password" type="xsd:string" />
+  <part name="user_id" type="xsd:integer" />
+  <part name="newpassword" type="xsd:string" /></message>
+<message name="mc_change_users_passwordResponse">
+  <part name="return" type="xsd:boolean" /></message>
 <message name="mc_tag_get_allRequest">
   <part name="username" type="xsd:string" />
   <part name="password" type="xsd:string" />
@@ -1590,6 +1603,16 @@
   </operation>
   <operation name="mc_user_profiles_get_all">
     <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_user_profiles_get_all" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+  <operation name="mc_change_password">
+      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_change_password" style="rpc"/>
+      <input><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+  <operation name="mc_change_users_password">
+  <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_change_users_password" style="rpc"/>
     <input><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
     <output><soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
   </operation>
