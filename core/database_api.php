@@ -132,6 +132,11 @@ function db_connect( $p_dsn, $p_hostname = null, $p_username = null, $p_password
 	$t_db_type = config_get_global( 'db_type' );
 	$g_db_functional_type = db_get_type( $t_db_type );
 
+	if( $g_db_functional_type == DB_TYPE_UNDEFINED ) {
+		error_parameters( 0, 'Database type is not supported by MantisBT, check $g_db_type in config_inc.php' );
+		trigger_error( ERROR_DB_CONNECT_FAILED, ERROR );
+	}
+
 	if( !db_check_database_support( $t_db_type ) ) {
 		error_parameters( 0, 'PHP Support for database is not enabled' );
 		trigger_error( ERROR_DB_CONNECT_FAILED, ERROR );
@@ -216,8 +221,6 @@ function db_get_type( $p_driver_type ) {
 	switch( $p_driver_type ) {
 		case 'mysqli':
 			return DB_TYPE_MYSQL;
-		case 'postgres':
-		case 'postgres7':
 		case 'pgsql':
 			return DB_TYPE_PGSQL;
 		case 'mssqlnative':
@@ -711,14 +714,10 @@ function db_prepare_string( $p_string ) {
 	switch( $t_db_type ) {
 		case 'mssqlnative':
 		case 'odbc_mssql':
-		case 'ado_mssql':
 			return addslashes( $p_string );
 		case 'mysqli':
 			$t_escaped = $g_db->qstr( $p_string, false );
 			return utf8_substr( $t_escaped, 1, utf8_strlen( $t_escaped ) - 2 );
-		case 'postgres':
-		case 'postgres64':
-		case 'postgres7':
 		case 'pgsql':
 			return pg_escape_string( $p_string );
 		case 'oci8':
@@ -742,13 +741,9 @@ function db_prepare_binary_string( $p_string ) {
 
 	switch( $t_db_type ) {
 		case 'odbc_mssql':
-		case 'ado_mssql':
 			$t_content = unpack( 'H*hex', $p_string );
 			return '0x' . $t_content['hex'];
 			break;
-		case 'postgres':
-		case 'postgres64':
-		case 'postgres7':
 		case 'pgsql':
 			return $g_db->BlobEncode( $p_string );
 			break;
